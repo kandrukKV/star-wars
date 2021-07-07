@@ -4,9 +4,9 @@ export const AppRoute = {
 };
 
 export const SearchOption = {
-  ALL: `all`,
-  MALE: `male`,
-  FEMALE: `female`
+  ALL: `All`,
+  MALE: `Male`,
+  FEMALE: `Female`
 };
 
 export const SearchOptions = [
@@ -14,3 +14,7 @@ export const SearchOptions = [
   {value: SearchOption.MALE, label: `Male`},
   {value: SearchOption.FEMALE, label: `Female`},
 ];
+
+export const GET_PEOPLE_URL = `https://swapi.dev/api/people`;
+
+export const BASE_IMG_URL = ``;
