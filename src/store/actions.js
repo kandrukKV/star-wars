@@ -14,7 +14,7 @@ export const setSearchFieldValueAction = (value) => ({
   payload: value
 });
 
-export const setCards = (cards) => ({
+export const setCardsAction = (cards) => ({
   type: ActionTypes.SET_CARDS,
   payload: cards
 });

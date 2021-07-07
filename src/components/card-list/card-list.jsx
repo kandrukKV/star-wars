@@ -6,7 +6,7 @@ import Card from "../card/card";
 const CardList = ({cards}) => {
   return (
     <ul className="card-list">
-      {cards.map((card) => <Card key={card.id} card={card}/>)}
+      {cards.map((card) => <li className="card-list__item" key={card.name} ><Card card={card}/></li>)}
     </ul>
   );
 };
