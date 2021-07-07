@@ -1,0 +1,82 @@
+.select {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.select--open {
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.select__value {
+  width: 95px;
+  position: relative;
+  padding: 7px 30px 7px 7px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #FFFFFF;
+}
+
+.select__label {
+  color: #FFFFFF;
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.select__btn {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: none;
+  background-image: url("../../img/arrov-down.svg");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.select--open .select__btn {
+  background-image: url("../../img/arrov-up.svg");
+}
+
+.select__list {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 5px;
+  padding: 5px;
+  margin: 0;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 90px;
+}
+
+.select--open .select__list {
+  display: block;
+}
+
+.select__item {
+  list-style: none;
+  padding: 3px 0;
+}
+
+.select__item:hover {
+  background-color: #357EDD;
+  color: #FFFFFF;
+}
+
+.select__item:not(:last-child) {
+  margin-bottom: 5px;
+}
