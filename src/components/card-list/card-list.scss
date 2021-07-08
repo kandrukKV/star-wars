@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 0;
-  margin: 0;
+  margin: 0 0 20px 0;
 }
 
 .card-list__item {
@@ -13,3 +13,35 @@
   width: 300px;
 }
 
+.card-list__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-list__number {
+  margin: 0 15px;
+}
+
+.card-list__btn {
+  background: transparent;
+  border: 1px solid #357edd;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #357EDD;
+    color: #FFFFFF;
+  };
+}
+
+.card-list__btn:disabled {
+  color: #000000;
+  opacity: 0.5;
+
+  &:hover {
+    background: transparent;
+    color: #000000;
+  }
+}
