@@ -12,7 +12,7 @@ const Select = ({options, sexFilterValue, setSexFilterValue}) => {
       className={`select${isSelectOpen ? ` select--open` : ``}`}
       onClick={() => setIsSelectOpen((current) => !current)}
     >
-      <div className="select__label">Sex filter:</div>
+      <div className="select__label">Gender filter:</div>
       <div className="select__value">
         {sexFilterValue}
         <button className="select__btn">

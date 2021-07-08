@@ -1,26 +1,17 @@
-import React, {useEffect} from "react";
-import {connect} from "react-redux";
-import {setCardsAction} from "../../store/actions";
+import React from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Api from "../../services/api";
-import PropTypes from "prop-types";
 import "./app.scss";
 import Header from "../header/header";
 import {AppRoute} from "../../const";
 import Main from "../main/main";
-import Preloader from "../preloader/preloader";
-import CardList from "../card-list/card-list";
+import Heroes from "../heroes/heroes";
+import FavoriteHeroes from "../favorite-horoes/favorite-heroes";
 
-const App = ({cards, setCards}) => {
+
+const App = () => {
 
   const api = new Api();
-
-  useEffect(() => {
-    api.getPeople()
-      .then((data) => setCards(data.results));
-  }, []);
-
-  console.log(cards); //eslint-disable-line
 
   return (
     <Router>
@@ -30,11 +21,13 @@ const App = ({cards, setCards}) => {
           <Switch>
             <Route exact path={AppRoute.MAIN}>
               <Main mainTitle="Main">
-                {cards ? <CardList cards={cards}/> : <Preloader/>}
+                <Heroes api={api}/>
               </Main>
             </Route>
             <Route path={AppRoute.FAVORITES}>
-              <Main mainTitle="Favorite heroes"/>
+              <Main mainTitle="Favorite heroes">
+                <FavoriteHeroes api={api}/>
+              </Main>
             </Route>
             <Route>
               <Main mainTitle="Page not found"/>
@@ -46,19 +39,4 @@ const App = ({cards, setCards}) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  cards: state.cards
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setCards(cards) {
-    dispatch(setCardsAction(cards));
-  }
-});
-
-App. propTypes = {
-  cards: PropTypes.array,
-  setCards: PropTypes.func
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
