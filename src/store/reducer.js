@@ -3,7 +3,7 @@ import {ActionTypes} from "./actions";
 
 const initialState = {
   sexFilterValue: SearchOption.ALL,
-  searchFieldValue: null,
+  searchFieldValue: ``,
   cards: null,
   favoriteCards: []
 };

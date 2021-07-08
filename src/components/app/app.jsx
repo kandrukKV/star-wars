@@ -6,7 +6,7 @@ import Header from "../header/header";
 import {AppRoute} from "../../const";
 import Main from "../main/main";
 import Heroes from "../heroes/heroes";
-import FavoriteHeroes from "../favorite-horoes/favorite-heroes";
+import FavoriteHeroes from "../favorite-heroes/favorite-heroes";
 
 
 const App = () => {

@@ -3,8 +3,9 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {setFavoriteCardsAction} from "../../store/actions";
 import CardList from "../card-list/card-list";
+import {filterByGender, filterByName} from "../../utils";
 
-const FavoriteHeroes = ({favoriteCards, setFavoriteCards, api}) => {
+const FavoriteHeroes = ({favoriteCards, setFavoriteCards, api, sexFilterValue, searchFieldValue}) => {
 
   useEffect(() => {
     const heroes = api.getFavoriteHeroes();
@@ -17,15 +18,20 @@ const FavoriteHeroes = ({favoriteCards, setFavoriteCards, api}) => {
     setFavoriteCards(heroes);
   };
 
+  const filteredCardsByGender = filterByGender(sexFilterValue, favoriteCards);
+  const filteredCards = filterByName(searchFieldValue, filteredCardsByGender);
+
   return (
     <>
-      {favoriteCards && favoriteCards.length > 0 ? <CardList cards={favoriteCards} onClickFavoriteBtn={favoriteBtnHandler}/> : <p>No favorite heroes</p>}
+      {favoriteCards && favoriteCards.length > 0 ? <CardList cards={filteredCards} onClickFavoriteBtn={favoriteBtnHandler}/> : <p>No favorite heroes</p>}
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
-  favoriteCards: state.favoriteCards
+  favoriteCards: state.favoriteCards,
+  sexFilterValue: state.sexFilterValue,
+  searchFieldValue: state.searchFieldValue
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -37,6 +43,8 @@ const mapDispatchToProps = (dispatch) => ({
 FavoriteHeroes.propTypes = {
   favoriteCards: PropTypes.array,
   setFavoriteCards: PropTypes.func.isRequired,
+  sexFilterValue: PropTypes.string.isRequired,
+  searchFieldValue: PropTypes.string.isRequired,
   api: PropTypes.object.isRequired
 };
 

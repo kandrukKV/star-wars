@@ -24,3 +24,8 @@ export const REG_EXP_FOR_ID = /\/([0-9]*)\/$/;
 export const LOCAL_STORAGE_KEY = `StarWars`;
 
 export const NUMBER_OF_ITEMS_IN_CARD_LIST = 3;
+
+export const GenderValueOfServer = {
+  MALE: `male`,
+  FEMALE: `female`
+};

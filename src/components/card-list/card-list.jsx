@@ -15,6 +15,12 @@ const CardList = ({cards, onClickFavoriteBtn}) => {
 
   const viewCards = cards.slice(start, end);
 
+  if (viewCards.length === 0) {
+    if (currentPage !== 0) {
+      setCurrentPage(0);
+    }
+  }
+
   return (
     <>
       <ul className="card-list">
@@ -24,20 +30,21 @@ const CardList = ({cards, onClickFavoriteBtn}) => {
           </li>)}
       </ul>
 
-      <div className="card-list__pagination">
-        <button
-          className="card-list__btn"
-          onClick={() => setCurrentPage((page) => page - 1)}
-          disabled={currentPage === 0}
-        >Prev</button>
-        <p className="card-list__number">{currentPage + 1} of {numberOfPages}</p>
-        <button
-          className="card-list__btn"
-          onClick={() => setCurrentPage((page) => page + 1)}
-          disabled={currentPage === numberOfPages - 1}
-        >Next</button>
-      </div>
-
+      {numberOfPages > 1 &&
+        <div className="card-list__pagination">
+          <button
+            className="card-list__btn"
+            onClick={() => setCurrentPage((page) => page - 1)}
+            disabled={currentPage === 0}
+          >Prev</button>
+          <p className="card-list__number">{currentPage + 1} of {numberOfPages}</p>
+          <button
+            className="card-list__btn"
+            onClick={() => setCurrentPage((page) => page + 1)}
+            disabled={currentPage === numberOfPages - 1}
+          >Next</button>
+        </div>
+      }
     </>
   );
 };
