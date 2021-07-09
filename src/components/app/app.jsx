@@ -9,22 +9,37 @@ import {AppRoute} from "../../const";
 import Main from "../main/main";
 import Heroes from "../heroes/heroes";
 import FavoriteHeroes from "../favorite-heroes/favorite-heroes";
+import {setCardsAction} from "../../store/actions";
+import {filterByGender, filterByName, transformHeroesToApp, getFavoriteHeroes, updateCardList} from "../../utils";
 
-import {setCardsAction, setFavoriteCardsAction} from "../../store/actions";
-import {transformHeroesToApp} from "../../utils";
 
+const App = (props) => {
 
-const App = ({cards, setCards, favoriteCards, setFavoriteCards}) => {
+  const {
+    cards,
+    setCards,
+    sexFilterValue,
+    searchFieldValue,
+  } = props;
 
   const api = new Api();
 
   useEffect(() => {
-    setFavoriteCards(api.getFavoriteHeroes());
     api.getAllHeroes().then((data) => {
       const allCards = [].concat(...data);
-      setCards(transformHeroesToApp(allCards, favoriteCards));
+      setCards(transformHeroesToApp(allCards, api.getFavoriteHeroes()));
     });
   }, []);
+
+  const favoriteBtnHandler = (id) => {
+    const currentFavoriteList = api.addFavoriteHeroes(id);
+    setCards(updateCardList(cards, currentFavoriteList));
+  };
+
+  const filteredHeroes = (heroes) => {
+    const filteredCardsByGender = filterByGender(sexFilterValue, heroes);
+    return filterByName(searchFieldValue, filteredCardsByGender);
+  };
 
   return (
     <Router>
@@ -34,12 +49,18 @@ const App = ({cards, setCards, favoriteCards, setFavoriteCards}) => {
           <Switch>
             <Route exact path={AppRoute.MAIN}>
               <Main mainTitle="Main">
-                <Heroes api={api} cards={cards}/>
+                <Heroes
+                  cards={filteredHeroes(cards)}
+                  onClickFavoriteBtn={favoriteBtnHandler}
+                />
               </Main>
             </Route>
             <Route path={AppRoute.FAVORITES}>
               <Main mainTitle="Favorite heroes">
-                <FavoriteHeroes api={api}/>
+                <FavoriteHeroes
+                  favoriteCards={getFavoriteHeroes(filteredHeroes(cards))}
+                  onClickFavoriteBtn={favoriteBtnHandler}
+                />
               </Main>
             </Route>
             <Route>
@@ -54,23 +75,21 @@ const App = ({cards, setCards, favoriteCards, setFavoriteCards}) => {
 
 const mapStateToProps = (state) => ({
   cards: state.cards,
-  favoriteCards: state.favoriteCards,
+  sexFilterValue: state.sexFilterValue,
+  searchFieldValue: state.searchFieldValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCards(cards) {
     dispatch(setCardsAction(cards));
   },
-  setFavoriteCards(cards) {
-    dispatch(setFavoriteCardsAction(cards));
-  }
 });
 
 App.propTypes = {
   cards: PropTypes.array,
-  favoriteCards: PropTypes.array,
   setCards: PropTypes.func.isRequired,
-  setFavoriteCards: PropTypes.func.isRequired,
+  sexFilterValue: PropTypes.string.isRequired,
+  searchFieldValue: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

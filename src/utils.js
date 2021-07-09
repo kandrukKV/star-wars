@@ -7,13 +7,23 @@ export const getHeroId = (heroUrl) => {
 export const transformHeroesToApp = (heroes, favoriteHeroes) => {
   return heroes.map((hero) => {
     const id = getHeroId(hero.url);
-    const flag = favoriteHeroes.findIndex((item) => item.id === id) !== -1;
+    const isFavorite = favoriteHeroes.findIndex((item) => item === id) !== -1;
 
     return {
       id,
       name: hero.name,
       gender: hero.gender,
-      isFavorite: flag
+      isFavorite
+    };
+  });
+};
+
+export const updateCardList = (cards, favoriteList) => {
+  return cards.map((card) => {
+    const isFavorite = favoriteList.findIndex((item) => item === card.id) !== -1;
+    return {
+      ...card,
+      isFavorite
     };
   });
 };
@@ -34,4 +44,11 @@ export const filterByName = (searchFieldValue, cards) => {
     return cards;
   }
   return cards.filter((item) => item.name.toUpperCase().indexOf(searchFieldValue.toUpperCase()) > -1);
+};
+
+export const getFavoriteHeroes = (cards) => {
+  if (!cards) {
+    return [];
+  }
+  return cards.filter((card) => card.isFavorite);
 };

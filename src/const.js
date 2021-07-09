@@ -21,7 +21,7 @@ export const BASE_IMG_URL = `https://starwars-visualguide.com/assets/img/charact
 
 export const REG_EXP_FOR_ID = /\/([0-9]*)\/$/;
 
-export const LOCAL_STORAGE_KEY = `StarWars`;
+export const LOCAL_STORAGE_KEY = `StarWars2`;
 
 export const NUMBER_OF_ITEMS_IN_CARD_LIST = 9;
 

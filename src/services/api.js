@@ -29,19 +29,19 @@ class Api {
     return cards ? JSON.parse(cards) : [];
   }
 
-  addFavoriteHeroes(hero) {
-    let cards = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (cards) {
-      cards = JSON.parse(cards);
-      const index = cards.findIndex((item) => item.id === hero.id);
+  addFavoriteHeroes(id) {
+    let idNumbers = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (idNumbers) {
+      idNumbers = JSON.parse(idNumbers);
+      const index = idNumbers.findIndex((item) => item === id);
       if (index > -1) {
-        cards.splice(index, 1);
+        idNumbers.splice(index, 1);
       } else {
-        cards.push({...hero, isFavorite: true});
+        idNumbers.push(id);
       }
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cards));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(idNumbers));
     } else {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([hero]));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([id]));
     }
     return this.getFavoriteHeroes();
   }
