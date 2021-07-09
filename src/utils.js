@@ -5,7 +5,6 @@ export const getHeroId = (heroUrl) => {
 };
 
 export const transformHeroesToApp = (heroes, favoriteHeroes) => {
-
   return heroes.map((hero) => {
     const id = getHeroId(hero.url);
     const flag = favoriteHeroes.findIndex((item) => item.id === id) !== -1;
@@ -34,5 +33,5 @@ export const filterByName = (searchFieldValue, cards) => {
   if (searchFieldValue.length === 0) {
     return cards;
   }
-  return cards.filter((item) => item.name.indexOf(searchFieldValue) > -1);
+  return cards.filter((item) => item.name.toUpperCase().indexOf(searchFieldValue.toUpperCase()) > -1);
 };

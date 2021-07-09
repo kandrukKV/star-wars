@@ -1,12 +1,27 @@
 import {GET_PEOPLE_URL, LOCAL_STORAGE_KEY} from "../const";
 
 class Api {
-  async getHeroes() {
+  async getAllHeroes() {
+    const tempArr = [];
     const res = await fetch(GET_PEOPLE_URL);
     if (!res.ok) {
       throw new Error(`Ошибка сервера `, res.status);
     }
-    return await res.json();
+    const data = await res.json();
+    const pagesCount = Math.ceil(data.count / data.results.length);
+
+    let urls = Array.from({length: pagesCount}, (v, i) => i + 1);
+    urls = urls.map((url) => `${GET_PEOPLE_URL}?page=${url}`);
+
+    const promises = urls.map((url) => fetch(url));
+
+    const allResponses = await Promise.all(promises);
+
+    for (const response of allResponses) {
+      const temp = await response.json();
+      await tempArr.push(temp.results);
+    }
+    return tempArr;
   }
 
   getFavoriteHeroes() {

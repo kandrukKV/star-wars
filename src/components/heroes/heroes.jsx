@@ -1,19 +1,12 @@
-import React, {useEffect} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {changeFavoriteAction, setCardsAction} from "../../store/actions";
-import {filterByGender, filterByName, transformHeroesToApp} from "../../utils";
+import {filterByGender, filterByName} from "../../utils";
 import CardList from "../card-list/card-list";
 import Preloader from "../preloader/preloader";
 
-const Heroes = ({cards, setCards, api, changeFavorite, sexFilterValue, searchFieldValue}) => {
-
-  useEffect(() => {
-    api.getHeroes()
-      .then((data) => {
-        setCards(transformHeroesToApp(data.results, api.getFavoriteHeroes()));
-      });
-  }, []);
+const Heroes = ({cards, api, changeFavorite, sexFilterValue, searchFieldValue}) => {
 
   const favoriteBtnHandler = (id) => {
     const hero = cards.find((item) => item.id === id);
@@ -35,7 +28,6 @@ const Heroes = ({cards, setCards, api, changeFavorite, sexFilterValue, searchFie
 };
 
 const mapStateToProps = (state) => ({
-  cards: state.cards,
   sexFilterValue: state.sexFilterValue,
   searchFieldValue: state.searchFieldValue
 });
