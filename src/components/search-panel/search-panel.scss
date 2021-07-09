@@ -1,7 +1,7 @@
 .search-panel {
   display: flex;
-}
 
-.search-panel__form {
-  margin-right: 15px;
+  &__form {
+    margin-right: 15px;
+  }
 }

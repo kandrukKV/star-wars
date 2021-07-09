@@ -1,8 +1,8 @@
 .main {
   padding: 0 10px;
-}
 
-.main__title {
-  font-size: 24px;
-  font-weight: 700;
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+  }
 }
